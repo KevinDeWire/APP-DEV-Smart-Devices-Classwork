@@ -2,7 +2,10 @@ package com.example.classworkapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,4 +52,20 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
     }
+
+    public static final String EXTRA_MESSAGE = "com.example.classworkapplication.MESSAGE";
+
+    public void sendMessage(View view){
+        Intent intent = new Intent(this, MessageActivity.class);
+        EditText editText = findViewById(R.id.editText);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void clearText (View view){
+        EditText editText = findViewById(R.id.editText);
+        editText.setText("");
+    }
+
 }
