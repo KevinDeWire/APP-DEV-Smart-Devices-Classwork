@@ -21,34 +21,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/type_here"
+            android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/sensorReadingTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/your_text" />
+            android:textSize="24sp" />
 
-        <TableRow
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end">
+            android:layout_height="352dp" />
 
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="clearText"
-                android:text="@android:string/cancel" />
-
-            <Button
-                android:id="@+id/okButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="sendMessage"
-                android:text="@android:string/ok" />
-        </TableRow>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
