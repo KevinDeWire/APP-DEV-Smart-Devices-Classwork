@@ -22,7 +22,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 TextView sensorValue;
-SensorEvent sensorEvent;
+Sensor lightSensor;
+MySensorEventListener mySensorEventListener;
+SensorManager sensorManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,11 @@ SensorEvent sensorEvent;
         Log.i("Main Activity", "onCreate");
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorValue = findViewById(R.id.sensorReadingTextView);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensorManager.registerListener((SensorEventListener) sensorEvent, lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
 
         List<Sensor> mSensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, mSensorList);
@@ -57,6 +60,7 @@ SensorEvent sensorEvent;
         super.onResume();
         Log.i("Main Activity", "onResume");
         Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        sensorManager.registerListener(mySensorEventListener, lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -64,6 +68,7 @@ SensorEvent sensorEvent;
         super.onPause();
         Log.i("Main Activity", "onPause");
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+        sensorManager.unregisterListener(mySensorEventListener);
     }
 
     @Override
@@ -90,11 +95,13 @@ SensorEvent sensorEvent;
     public static final String EXTRA_MESSAGE = "com.example.classworkapplication.MESSAGE";
 
 
-    private class SensorActivity implements SensorEventListener {
+    private class MySensorEventListener implements SensorEventListener {
+
         @Override
         public void onSensorChanged(SensorEvent event) {
             float lux = event.values[0];
-            sensorValue.setText(String.valueOf(lux));
+            String stringLux = Float.toString(lux);
+            sensorValue.setText(stringLux);
         }
 
         @Override
