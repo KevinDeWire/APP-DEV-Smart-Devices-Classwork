@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Classwork Application</string>
-    <string name="type_here">Light Sensor Reading:</string>
+    <string name="type_here">Sensor Readings:</string>
     <string name="your_text">Your text</string>
     <string name="textview">TextView</string>
 

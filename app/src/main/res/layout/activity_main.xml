@@ -24,11 +24,56 @@
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/sensorReadingTextView"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/xLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X-Value:"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/xValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/yLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Y-Value:"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/yValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/zLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Z-Value:"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/zValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp" />
+        </TableRow>
 
         <ListView
             android:id="@+id/listView"

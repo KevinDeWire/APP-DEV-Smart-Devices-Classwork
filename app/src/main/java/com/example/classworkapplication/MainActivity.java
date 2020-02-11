@@ -19,11 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-TextView sensorValue;
-Sensor lightSensor;
-MySensorEventListener mySensorEventListener;
+TextView xValue;
+TextView yValue;
+TextView zValue;
+Sensor gravitySensor;
 SensorManager sensorManager;
 
 
@@ -34,14 +35,16 @@ SensorManager sensorManager;
         Log.i("Main Activity", "onCreate");
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
-        sensorValue = findViewById(R.id.sensorReadingTextView);
+        xValue = findViewById(R.id.xValue);
+        yValue = findViewById(R.id.yValue);
+        zValue = findViewById(R.id.zValue);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 
 
-        List<Sensor> mSensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, mSensorList);
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, sensorList);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
     }
@@ -60,7 +63,7 @@ SensorManager sensorManager;
         super.onResume();
         Log.i("Main Activity", "onResume");
         Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-        sensorManager.registerListener(mySensorEventListener, lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, gravitySensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -68,7 +71,7 @@ SensorManager sensorManager;
         super.onPause();
         Log.i("Main Activity", "onPause");
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
-        sensorManager.unregisterListener(mySensorEventListener);
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -92,21 +95,19 @@ SensorManager sensorManager;
         Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
     }
 
-    public static final String EXTRA_MESSAGE = "com.example.classworkapplication.MESSAGE";
-
-
-    private class MySensorEventListener implements SensorEventListener {
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            float lux = event.values[0];
-            String stringLux = Float.toString(lux);
-            sensorValue.setText(stringLux);
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        xValue.setText(Float.toString(x));
+        yValue.setText(Float.toString(y));
+        zValue.setText(Float.toString(z));
     }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
 }
